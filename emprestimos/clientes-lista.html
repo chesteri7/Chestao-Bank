@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Clientes</title>
+  <link rel="stylesheet" href="clientes.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-content">
+    <h1>Chestão Bank</h1>
+    <p>Lista de Clientes</p>
+  </div>
+
+  <nav class="topbar-actions">
+    <a href="dashboard.html" class="nav-btn">Dashboard</a>
+    <a href="clientes.html" class="nav-btn">Novo Cliente</a>
+    <a href="emprestimos.html" class="nav-btn">Novo Empréstimo</a>
+  </nav>
+</header>
+
+<main class="page">
+  <section class="list-card">
+    <h2>Clientes Cadastrados</h2>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Telefone</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody id="clientesTableBody"></tbody>
+</table>
+
+    <div id="emptyState">Nenhum cliente cadastrado</div>
+  </section>
+</main>
+
+<script src="api.js"></script>
+<script src="clientes-lista.js"></script>
+
+</body>
+</html>

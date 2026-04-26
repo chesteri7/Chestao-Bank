@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chestão Bank - Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-content">
+      <div>
+        <h1>Chestão Bank</h1>
+        <p>Dashboard Financeira</p>
+      </div>
+
+      <nav class="topbar-actions">
+        <a href="clientes.html" class="nav-btn">Clientes</a>
+        <a href="emprestimos.html" class="nav-btn">Novo Empréstimo</a>
+        <a href="emprestimos-lista.html" class="nav-btn">Lista de Empréstimos</a>
+        <button id="btnLogout" class="logout-btn">Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="cards-grid">
+      <div class="card">
+        <span>Total de Clientes</span>
+        <strong id="totalClientes">0</strong>
+      </div>
+
+      <div class="card">
+        <span>Total de Empréstimos</span>
+        <strong id="totalEmprestimos">0</strong>
+      </div>
+
+      <div class="card">
+        <span>Valor Total Emprestado</span>
+        <strong id="valorTotalEmprestado">R$ 0,00</strong>
+      </div>
+
+      <div class="card">
+        <span>Valor Total a Receber</span>
+        <strong id="valorTotalReceber">R$ 0,00</strong>
+      </div>
+    </section>
+
+    <section class="cards-grid secondary">
+      <div class="card">
+        <span>Empréstimos Ativos</span>
+        <strong id="emprestimosAtivos">0</strong>
+      </div>
+
+      <div class="card card-danger">
+  <div class="card-content">
+    <div class="card-icon">⚠️</div>
+
+    <div>
+      <span>Total em Atraso</span>
+      <strong id="totalEmAtraso">R$ 0,00</strong>
+    </div>
+  </div>
+</div>
+
+      <div class="card">
+        <span>Lucro Previsto</span>
+        <strong id="lucroPrevisto">R$ 0,00</strong>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <div class="section-header">
+        <h2>Últimos Empréstimos</h2>
+        <p>Visualização rápida dos registros mais recentes.</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Data</th>
+              <th>Valor</th>
+              <th>Juros</th>
+              <th>Parcelas</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ultimosEmprestimosBody"></tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        Nenhum empréstimo encontrado.
+      </div>
+    </section>
+  </main>
+
+  <script src="api.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

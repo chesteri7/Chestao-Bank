@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chestão Bank - Parcelas</title>
+  <link rel="stylesheet" href="parcelas.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-content">
+      <div>
+        <h1>Chestão Bank</h1>
+        <p>Controle de Parcelas</p>
+      </div>
+
+      <nav class="topbar-actions">
+        <a href="dashboard.html" class="nav-btn">Dashboard</a>
+        <a href="clientes.html" class="nav-btn">Clientes</a>
+        <a href="emprestimos.html" class="nav-btn">Novo Empréstimo</a>
+        <a href="emprestimos-lista.html" class="nav-btn">Lista de Empréstimos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="info-card">
+      <h2>Parcelas do Empréstimo</h2>
+      <p id="loanInfo">Carregando informações do empréstimo...</p>
+    </section>
+
+    <section class="table-card">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Parcela</th>
+              <th>Valor</th>
+              <th>Vencimento</th>
+              <th>Status</th>
+              <th>Valor Pago</th>
+              <th>Data Pagamento</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="parcelasTableBody"></tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        Nenhuma parcela encontrada.
+      </div>
+    </section>
+  </main>
+
+  <script src="api.js"></script>
+  <script src="parcelas.js"></script>
+
+  <div id="comprovanteModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="fecharModalComprovante()">×</button>
+    <h3>Comprovante</h3>
+
+    <div id="modalBody"></div>
+  </div>
+</div>
+</body>
+</html>

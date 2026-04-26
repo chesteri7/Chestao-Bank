@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chestão Bank - Empréstimos</title>
+  <link rel="stylesheet" href="emprestimos.css" />
+
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-content">
+      <h1>Chestão Bank</h1>
+      <p>Sistema de Empréstimos</p>
+    </div>
+
+    <nav class="topbar-actions">
+      <a href="dashboard.html" class="nav-btn">Dashboard</a>
+      <a href="clientes.html" class="nav-btn">Clientes</a>
+      <a href="emprestimos-lista.html" class="nav-btn">Lista de Empréstimos</a>
+    </nav>
+  </div>
+  </header>
+
+  <main class="page">
+    <section class="loan-card">
+      <div class="card-header">
+        <h2>Novo Empréstimo</h2>
+        <p>Preencha os dados abaixo para calcular o empréstimo.</p>
+      </div>
+
+      <form id="loanForm" class="loan-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" id="data" name="data" required />
+          </div>
+
+          <div class="form-group">
+            <label for="cliente">Nome do Cliente</label>
+
+            <select id="cliente" name="cliente" required>
+  <option value="">Selecione um cliente</option>
+</select>
+            <!--<input
+              type="text"
+              id="cliente"
+              name="cliente"
+              placeholder="Digite o nome do cliente"
+              required
+            />-->
+          </div>
+
+          <div class="form-group">
+            <label for="valorEmprestimo">Valor do Empréstimo (R$)</label>
+            <input
+              type="number"
+              id="valorEmprestimo"
+              name="valorEmprestimo"
+              placeholder="Ex: 1000"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="juros">Juros (%)</label>
+            <input
+              type="number"
+              id="juros"
+              name="juros"
+              placeholder="Ex: 50"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="valorTotal">Valor Total a Receber (R$)</label>
+            <input
+              type="text"
+              id="valorTotal"
+              name="valorTotal"
+              placeholder="Calculado automaticamente"
+              readonly
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="parcelas">Parcelas</label>
+            <input
+              type="number"
+              id="parcelas"
+              name="parcelas"
+              placeholder="Ex: 4"
+              min="1"
+              max="6"
+              required
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="valorParcela">Total da Parcela (R$)</label>
+            <input
+              type="text"
+              id="valorParcela"
+              name="valorParcela"
+              placeholder="Calculado automaticamente"
+              readonly
+            />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="btnSalvar" class="btn btn-primary">
+            Salvar Empréstimo
+          </button>
+
+          <button type="button" id="btnCalcular" class="btn btn-primary">
+            Calcular
+          </button>
+
+          <button type="reset" id="btnLimpar" class="btn btn-secondary">
+            Limpar
+          </button>
+
+          <a href="emprestimos-lista.html" class="btn btn-primary">
+            Ver Empréstimos
+          </a>
+        </div>
+      </form>
+
+      <section class="summary" id="summary">
+        <h3>Resumo do Empréstimo</h3>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span>Cliente</span>
+            <strong id="resumoCliente">—</strong>
+          </div>
+
+          <div class="summary-item">
+            <span>Data</span>
+            <strong id="resumoData">—</strong>
+          </div>
+
+          <div class="summary-item">
+            <span>Valor Emprestado</span>
+            <strong id="resumoValor">R$ 0,00</strong>
+          </div>
+
+          <div class="summary-item">
+            <span>Juros</span>
+            <strong id="resumoJuros">0%</strong>
+          </div>
+
+          <div class="summary-item">
+            <span>Total a Receber</span>
+            <strong id="resumoTotal">R$ 0,00</strong>
+          </div>
+
+          <div class="summary-item">
+            <span>Parcelas</span>
+            <strong id="resumoParcelas">0x</strong>
+          </div>
+
+          <div class="summary-item full">
+            <span>Valor por Parcela</span>
+            <strong id="resumoParcela">R$ 0,00</strong>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="api.js"></script>
+  <script src="emprestimos.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>

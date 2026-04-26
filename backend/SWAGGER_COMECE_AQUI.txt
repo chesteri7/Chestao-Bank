@@ -1,0 +1,155 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                                                                   ║
+║          🎨 SWAGGER UI CONFIGURADO COM SUCESSO! 🎨                ║
+║                                                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+✅ PASSO 1: Certifique-se que o servidor está rodando
+   
+   Command:
+   ```bash
+   cd backend
+   npm run dev
+   ```
+   
+   Resultado esperado:
+   ```
+   ✓ Conexão com banco de dados estabelecida
+   ✓ Servidor rodando em http://localhost:3000
+   ```
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ PASSO 2: Abra seu navegador e acesse
+
+   📍 http://localhost:3000/api-docs
+   
+   Você verá:
+   [Swagger UI Interface]
+   ├── Autenticação
+   ├── Clientes
+   ├── Empréstimos
+   └── Parcelas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ PASSO 3: Teste os Endpoints
+
+   A) PRIMEIRO - Registe um usuário
+      
+      1. Expanda "Autenticação"
+      2. Clique em "POST /api/auth/registrar"
+      3. Clique em "Try it out"
+      4. Preencha com:
+         {
+           "email": "teste@example.com",
+           "senha": "senha123",
+           "nome": "João"
+         }
+      5. Clique em "Execute"
+      6. COPIE O TOKEN retornado
+
+   B) SEGUNDO - Autorize no Swagger (IMPORTANTE!)
+      
+      1. Clique no botão "Authorize" 🔒 (topo direito)
+      2. Cole seu token assim:
+         Bearer seu_token_aqui
+      3. Clique em "Authorize"
+      4. Feche o modal
+
+   C) TERCEIRO - Crie um Cliente
+      
+      1. Expanda "Clientes"
+      2. POST /api/clientes → "Try it out"
+      3. Preencha:
+         {
+           "nome": "João Silva",
+           "cpf": "12345678901",
+           "status": "ativo",
+           "risco": "baixo"
+         }
+      4. "Execute" ← COPIE O ID
+
+   D) QUARTO - Crie um Empréstimo
+      
+      1. Expanda "Empréstimos"
+      2. POST /api/emprestimos → "Try it out"
+      3. Preencha:
+         {
+           "cliente_id": 1,
+           "data": "2026-03-21",
+           "valor_emprestimo": 1000.00,
+           "taxa_juros": 5,
+           "quantidade_parcelas": 3
+         }
+      4. "Execute"
+      5. PARCELAS SÃO CRIADAS AUTOMATICAMENTE! 🎉
+
+   E) QUINTO - Registre um Pagamento
+      
+      1. Expanda "Parcelas"
+      2. POST /api/parcelas/{parcelaId}/pagar
+      3. "Try it out"
+      4. parcelaId = 1
+      5. Preencha:
+         {
+           "valor_pago": 350.00,
+           "metodo_pagamento": "dinheiro"
+         }
+      6. "Execute"
+
+   F) SEXTO - Veja o Status
+      
+      1. Expanda "Parcelas"
+      2. GET /api/parcelas/emprestimos/{emprestimoId}/status
+      3. "Try it out"
+      4. emprestimoId = 1
+      5. "Execute" → Vê resumo com % pago!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 TODOS OS ENDPOINTS DISPONÍVEIS
+
+🟥 AUTENTICAÇÃO (SEM TOKEN)
+├── POST /api/auth/registrar    → Criar usuário
+└── POST /api/auth/login         → Fazer login
+
+🟩 CLIENTES (COM TOKEN)
+├── GET  /api/clientes          → Listar com paginação
+├── POST /api/clientes          → Criar
+├── GET  /api/clientes/{id}     → Obter um
+├── PUT  /api/clientes/{id}     → Atualizar
+└── DELETE /api/clientes/{id}   → Deletar
+
+🟨 EMPRÉSTIMOS (COM TOKEN)
+├── GET  /api/emprestimos       → Listar com filtros
+├── POST /api/emprestimos       → Criar (gera parcelas!)
+├── GET  /api/emprestimos/{id}  → Obter com parcelas
+├── PUT  /api/emprestimos/{id}  → Atualizar status
+└── DELETE /api/emprestimos/{id} → Deletar
+
+🟧 PARCELAS (COM TOKEN)
+├── GET  /api/parcelas/emprestimos/{id}/parcelas
+├── POST /api/parcelas/{id}/pagar → Registrar pagamento
+└── GET  /api/parcelas/emprestimos/{id}/status → Ver resumo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔑 DICAS IMPORTANTES
+
+✓ O Swagger memoriza seu token (clique "Authorize" uma vez)
+✓ Parcelas são criadas AUTOMATICAMENTE ao criar empréstimo
+✓ Token expira em 7 dias (recrie se necessário)
+✓ CPF deve ter 11 dígitos ou estar formatado
+✓ Empréstimos podem ter 1-6 parcelas
+✓ Status é enum (verificar documentação)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PRONTO PARA TESTAR!
+
+Acesse: http://localhost:3000/api-docs
+
+Se tiver problemas, leia SWAGGER_GUIDE.md para mais detalhes.
+
+═══════════════════════════════════════════════════════════════════

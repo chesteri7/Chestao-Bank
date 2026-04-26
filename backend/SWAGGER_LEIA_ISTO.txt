@@ -1,0 +1,66 @@
+╔════════════════════════════════════════════════════════════════╗
+║                  API REST COMPLETA COM SWAGGER                 ║
+║                      Sistema Chestão                            ║
+╚════════════════════════════════════════════════════════════════╝
+
+📍 URL DO SWAGGER: http://localhost:3000/api-docs
+
+═══════════════════════════════════════════════════════════════════
+
+✅ O QUE FOI ADICIONADO:
+
+  ✓ Swagger UI - Interface interativa para testar API
+  ✓ Swagger JSDoc - Documentação automática dos endpoints
+  ✓ Autenticação JWT no Swagger
+  ✓ Exemplos de requisição/resposta
+  ✓ Descrição de todos os parâmetros
+
+═══════════════════════════════════════════════════════════════════
+
+🚀 COMEÇAR AGORA:
+
+  1. Terminal:
+     ```bash
+     cd backend
+     npm run dev
+     ```
+  
+  2. Navegador:
+     http://localhost:3000/api-docs
+  
+  3. Teste:
+     - POST /api/auth/registrar (copie o token)
+     - Clique em "Authorize" e cole o token
+     - Teste os outros endpoints
+
+═══════════════════════════════════════════════════════════════════
+
+📋 ARQUIVOS CRIADOS:
+
+  ✓ src/config/swagger.js           → Configuração Swagger
+  ✓ SWAGGER_GUIDE.md                → Guia completo de uso
+  ✓ SWAGGER_COMECE_AQUI.txt         → Instruções visuais
+  ✓ Este arquivo
+
+═══════════════════════════════════════════════════════════════════
+
+🎨 RECURSOS DO SWAGGER:
+
+  ✓ Todos os 4 grupos de endpoints documentados
+  ✓ Autenticação JWT integrada (botão "Authorize")
+  ✓ Exemplos de JSON em cada endpoint
+  ✓ Validações explicadas
+  ✓ Respostas de sucesso e erro
+
+═══════════════════════════════════════════════════════════════════
+
+💡 DICAS:
+
+  ✓ Use "Try it out" para testar
+  ✓ Clique no cadeado 🔒 para autorizar com JWT
+  ✓ Veja as respostas em tempo real
+  ✓ Copie exemplos de cURL se precisar
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 PRÓXIMO PASSO: Vá para SWAGGER_COMECE_AQUI.txt

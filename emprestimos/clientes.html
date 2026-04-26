@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chestão Bank - Cadastro de Clientes</title>
+  <link rel="stylesheet" href="clientes.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-content">
+      <h1>Chestão Bank</h1>
+      <p>Cadastro de Clientes</p>
+    </div>
+
+    <nav class="topbar-actions">
+      <a href="dashboard.html" class="nav-btn">Dashboard</a>
+      <a href="emprestimos.html" class="nav-btn">Novo Empréstimo</a>
+      <a href="emprestimos-lista.html" class="nav-btn">Lista de Empréstimos</a>
+      <a href="clientes-lista.html" class="nav-btn">Clientes</a>
+    </nav>
+  </div>
+  </header>
+
+  <main class="page">
+    <section class="client-layout">
+      <div class="client-card">
+        <div class="card-header">
+          <h2>Novo Cliente</h2>
+          <p>Preencha os dados do cliente para cadastro no sistema.</p>
+        </div>
+
+        <form id="clientForm" class="client-form">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="nome">Nome Completo</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Digite o nome completo"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="cpf">CPF</label>
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                placeholder="000.000.000-00"
+                maxlength="14"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="telefone">Telefone / WhatsApp</label>
+              <input
+                type="text"
+                id="telefone"
+                name="telefone"
+                placeholder="(00) 00000-0000"
+                maxlength="15"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="cliente@email.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="status">Status do Cliente</label>
+              <select id="status" name="status" required>
+                <option value="">Selecione</option>
+                <option value="ativo">Ativo</option>
+                <option value="inativo">Inativo</option>
+                <option value="suspendido">Suspendido</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="risco">Perfil de Risco</label>
+              <select id="risco" name="risco" required>
+                <option value="">Selecione</option>
+                <option value="baixo">Baixo</option>
+                <option value="medio">Médio</option>
+                <option value="alto">Alto</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="endereco">Endereço</label>
+              <input
+                type="text"
+                id="endereco"
+                name="endereco"
+                placeholder="Rua, número, bairro"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="cidade">Cidade</label>
+              <input
+                type="text"
+                id="cidade"
+                name="cidade"
+                placeholder="Digite a cidade"
+              />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="observacoes">Observações</label>
+              <textarea
+                id="observacoes"
+                name="observacoes"
+                rows="4"
+                placeholder="Anotações importantes sobre o cliente"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+            <button type="reset" class="btn btn-secondary">Limpar</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="info-card">
+        <h3>Resumo do Cadastro</h3>
+
+        <div class="info-item">
+          <span>Cliente</span>
+          <strong id="previewNome">—</strong>
+        </div>
+
+        <div class="info-item">
+          <span>CPF</span>
+          <strong id="previewCpf">—</strong>
+        </div>
+
+        <div class="info-item">
+          <span>Telefone</span>
+          <strong id="previewTelefone">—</strong>
+        </div>
+
+        <div class="info-item">
+          <span>Status</span>
+          <strong id="previewStatus">—</strong>
+        </div>
+
+        <div class="info-item">
+          <span>Perfil de Risco</span>
+          <strong id="previewRisco">—</strong>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="api.js"></script>
+  <script src="clientes.js"></script>
+</body>
+</html>

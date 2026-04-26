@@ -1,0 +1,262 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --primary: #1f4b99;
+  --primary-dark: #173974;
+  --accent: #22c55e;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #dbe3ee;
+  --input-bg: #f9fbff;
+  --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  --radius: 18px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #eef3fb, #f8fbff);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.topbar {
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  padding: 28px 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.topbar-content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.topbar h1 {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.topbar p {
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+.page {
+  padding: 32px 20px 48px;
+}
+
+.loan-card {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid #edf2f7;
+}
+
+.card-header {
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid var(--border);
+  background: #f8fbff;
+}
+
+.card-header h2 {
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+}
+
+.card-header p {
+  color: var(--muted);
+}
+
+.loan-form {
+  padding: 28px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.form-group input,
+.form-group select {
+  height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0 14px;
+  font-size: 1rem;
+  background: var(--input-bg);
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(31, 75, 153, 0.12);
+}
+
+.form-group input[readonly] {
+  background: #eef4ff;
+  color: #1e3a8a;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  opacity: 0.96;
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.summary {
+  padding: 28px;
+  border-top: 1px solid var(--border);
+  background: #fcfdff;
+}
+
+.summary h3 {
+  margin-bottom: 18px;
+  font-size: 1.25rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.summary-item {
+  background: #f8fbff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-item span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.summary-item strong {
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.summary-item.full {
+  grid-column: 1 / -1;
+  background: #eef4ff;
+}
+
+@media (max-width: 768px) {
+  .form-grid,
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar h1 {
+    font-size: 1.6rem;
+  }
+
+  .loan-form,
+  .summary,
+  .card-header {
+    padding: 20px;
+  }
+}
+
+.topbar-content {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  border: none;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

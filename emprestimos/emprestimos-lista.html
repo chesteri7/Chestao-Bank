@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chestão Bank - Lista de Empréstimos</title>
+  <link rel="stylesheet" href="emprestimos-lista.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-content">
+      <h1>Chestão Bank</h1>
+      <p>Lista de Empréstimos</p>
+    </div>
+
+    <nav class="topbar-actions">
+      <a href="dashboard.html" class="nav-btn">Dashboard</a>
+      <a href="clientes.html" class="nav-btn">Clientes</a>
+      <a href="emprestimos.html" class="nav-btn">Novo Empréstimo</a>
+    </nav>
+  </div>
+  </header>
+
+  <main class="page">
+    <section class="list-card">
+      <div class="card-header">
+  <div>
+    <h2>Empréstimos Cadastrados</h2>
+    <p>Visualize e gerencie os empréstimos registrados no sistema.</p>
+  </div>
+
+  <a href="emprestimos.html" class="btn btn-primary">Novo Empréstimo</a>
+</div>
+
+<div class="filters">
+  <div class="filter-group">
+    <label for="searchCliente">Buscar cliente</label>
+    <input
+      type="text"
+      id="searchCliente"
+      placeholder="Digite o nome do cliente"
+    />
+  </div>
+
+  <div class="filter-group">
+    <label for="filterStatus">Status</label>
+    <select id="filterStatus">
+      <option value="todos">Todos</option>
+      <option value="ativo">Ativo</option>
+      <option value="quitado">Quitado</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="dataInicial">Data inicial</label>
+    <input type="date" id="dataInicial" />
+  </div>
+
+  <div class="filter-group">
+    <label for="dataFinal">Data final</label>
+    <input type="date" id="dataFinal" />
+  </div>
+
+  <div class="filter-actions">
+  <button id="btnLimparFiltros" class="btn btn-secondary">
+    Limpar filtros
+  </button>
+</div>
+</div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Data</th>
+              <th>Valor Emprestado</th>
+              <th>Juros</th>
+              <th>Parcelas</th>
+              <th>Total a Receber</th>
+              <th>Valor da Parcela</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="loanTableBody">
+          </tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        Nenhum empréstimo cadastrado até o momento.
+      </div>
+    </section>
+  </main>
+
+  <script src="api.js"></script>
+  <script src="emprestimos-lista.js"></script>
+</body>
+</html>
