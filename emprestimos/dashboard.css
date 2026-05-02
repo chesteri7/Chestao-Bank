@@ -240,3 +240,53 @@ tbody tr:hover {
   }
 }
 
+#proximosVencimentosLista li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+#proximosVencimentosLista strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0b2a5b;
+}
+
+.vencimento-proximo {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-left: 4px solid #3b82f6;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.vencimento-amanha {
+  background: #fffbeb;
+  color: #92400e;
+  border-left: 4px solid #f59e0b;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.vencimento-hoje {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-left: 4px solid #ef4444;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.vencimento-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.vencimento-link:hover {
+  text-decoration: underline;
+}
+

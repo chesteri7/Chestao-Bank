@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Elementos do formulário
+const custoParcelaInput = document.getElementById("custoParcela");
 const form = document.getElementById("loanForm");
 const btnCalcular = document.getElementById("btnCalcular");
 const btnSalvar = document.getElementById("btnSalvar");
@@ -140,7 +141,8 @@ async function salvarEmprestimoNoBackend() {
       data: data,
       valor_emprestimo: valorEmprestimo,
       taxa_juros: juros,
-      quantidade_parcelas: parcelas
+      quantidade_parcelas: parcelas,
+      custo_parcela: Number(custoParcelaInput.value || 0),
     };
 
     const resultado = await API.emprestimos.criar(novoEmprestimo);

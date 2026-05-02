@@ -289,3 +289,80 @@ tbody tr:hover {
   border-radius: 12px;
 }
 
+.btn-edit {
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background: #d97706;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-group input {
+  padding: 12px 14px;
+  border: 1px solid #d9e2ef;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+}
+
+.card-documentos {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 24px 0;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.documentos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.documentos-header h3 {
+  margin: 0;
+  color: #0b1f3a;
+}
+
+.documento-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.documento-item a {
+  color: #1f4f9c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.documento-item a:hover {
+  text-decoration: underline;
+}
+

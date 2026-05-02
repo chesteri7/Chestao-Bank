@@ -138,7 +138,7 @@ const calcularParcelas = (valorEmprestimo, taxa, quantidade) => {
 const criarEmprestimo = async (req, res, next) => {
     try {
         const usuarioId = req.usuarioId;
-        const { cliente_id, data, valor_emprestimo, taxa_juros, quantidade_parcelas } = req.body;
+        const { cliente_id, data, valor_emprestimo, taxa_juros, quantidade_parcelas, custo_parcela } = req.body;
 
         // Validar dados
         const { error } = validarEmprestimo(req.body);
@@ -165,11 +165,31 @@ const criarEmprestimo = async (req, res, next) => {
 
         // Inserir empréstimo
         const resultado = await db.query(
-            `INSERT INTO emprestimos (usuario_id, cliente_id, data, valor_emprestimo, taxa_juros, quantidade_parcelas, valor_total, status)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-             RETURNING id, usuario_id, cliente_id, data, valor_emprestimo, taxa_juros, quantidade_parcelas, valor_total, status, criado_em`,
-            [usuarioId, cliente_id, data, valor_emprestimo, taxa_juros, quantidade_parcelas, valorTotal, 'ativo']
-        );
+    `INSERT INTO emprestimos (
+        usuario_id,
+        cliente_id,
+        data,
+        valor_emprestimo,
+        taxa_juros,
+        quantidade_parcelas,
+        valor_total,
+        custo_parcela,
+        status
+     )
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+     RETURNING id, usuario_id, cliente_id, data, valor_emprestimo, taxa_juros, quantidade_parcelas, valor_total, custo_parcela, status, criado_em`,
+    [
+        usuarioId,
+        cliente_id,
+        data,
+        valor_emprestimo,
+        taxa_juros,
+        quantidade_parcelas,
+        valorTotal,
+        custo_parcela || 0,
+        'ativo'
+    ]
+);
 
         const emprestimo = resultado.rows[0];
 

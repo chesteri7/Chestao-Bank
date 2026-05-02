@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   carregarDashboard();
+  carregarProximosVencimentos();
   configurarLogout();
 });
 
@@ -72,7 +73,7 @@ async function carregarDashboard() {
 
     let valorTotalAtrasado = 0;
 
-for (const emprestimo of emprestimos) {
+  for (const emprestimo of emprestimos) {
   try {
     const respostaParcelas = await API.parcelas.obterStatus(emprestimo.id);
     const parcelas = respostaParcelas.parcelas || [];
@@ -87,7 +88,7 @@ for (const emprestimo of emprestimos) {
   } catch (error) {
     console.error(`Erro ao buscar parcelas do empréstimo ${emprestimo.id}:`, error);
   }
-}
+  }
 
     totalClientesEl.textContent = totalClientes;
     totalEmprestimosEl.textContent = totalEmprestimos;
@@ -101,6 +102,56 @@ for (const emprestimo of emprestimos) {
   } catch (err) {
     console.error("Erro ao carregar dashboard:", err);
   }
+}
+
+async function carregarProximosVencimentos() {
+  try {
+    const dados = await API.parcelas.proximosVencimentos();
+
+    const lista = document.getElementById("proximosVencimentosLista");
+    lista.innerHTML = "";
+
+    if (dados.length === 0) {
+      lista.innerHTML = "<li>Nenhum vencimento próximo</li>";
+      return;
+    }
+
+    dados.forEach(item => {
+      const li = document.createElement("li");
+
+      const hoje = new Date();
+hoje.setHours(0, 0, 0, 0);
+
+const vencimento = new Date(item.data_vencimento);
+vencimento.setHours(0, 0, 0, 0);
+
+const diffDias = Math.ceil((vencimento - hoje) / (1000 * 60 * 60 * 24));
+
+let classe = "vencimento-proximo";
+
+if (diffDias === 0) {
+  classe = "vencimento-hoje";
+} else if (diffDias === 1) {
+  classe = "vencimento-amanha";
+}
+
+li.className = classe;
+
+li.innerHTML = `
+  <a href="parcelas.html?emprestimoId=${item.emprestimo_id}" class="vencimento-link">
+    <strong>${item.cliente_nome}</strong> 
+    – ${formatarData(item.data_vencimento)} 
+    – ${formatarMoeda(item.valor_parcela)}
+  </a>
+`;
+
+      lista.appendChild(li);
+    });
+
+  } catch (err) {
+    console.error("Erro ao carregar vencimentos:", err);
+  }
+  
 }
 
 function renderizarUltimosEmprestimos(emprestimos) {

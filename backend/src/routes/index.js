@@ -1,3 +1,4 @@
+const documentosController = require('../controllers/documentosController');
 const express = require('express');
 const authRoutes = require('./auth');
 const clientesRoutes = require('./clientes');

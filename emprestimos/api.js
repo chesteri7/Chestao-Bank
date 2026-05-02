@@ -179,6 +179,14 @@ const API = {
         deletar: async (id) => {
             return apiRequest(`/emprestimos/${id}`, 'DELETE');
         },
+
+        listarDocumentos: async (emprestimoId) => {
+            return apiRequest(`/emprestimos/${emprestimoId}/documentos`);
+        },
+
+        adicionarDocumento: async (emprestimoId, dados) => {
+            return apiRequest(`/emprestimos/${emprestimoId}/documentos`, "POST", dados);
+        },
     },
 
     // ============================================
@@ -206,6 +214,14 @@ const API = {
 
         obterStatus: async (emprestimoId) => {
             return apiRequest(`/parcelas/emprestimos/${emprestimoId}/status`);
+        },
+
+        atualizarParcela: async (parcelaId, dados) => {
+        return apiRequest(`/parcelas/${parcelaId}/editar`, "PUT", dados);
+        },
+
+        proximosVencimentos: async () => {
+        return apiRequest("/parcelas/proximos-vencimentos");
         },
     },
 };
