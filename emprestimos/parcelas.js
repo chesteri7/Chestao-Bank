@@ -124,64 +124,68 @@ function renderizarParcelas(parcelas, emprestimoId, emprestimo) {
   <td>${formatarMoeda(parcela.valor_pago)}</td>
   <td>${formatarData(parcela.data_pagamento)}</td>
   <td>
+   <div class="action-buttons">
+
     ${
     parcela.status !== 'pago'
       ? `
         <button 
-          class="btn-attach" 
-          onclick="anexarComprovante(${parcela.id}, ${emprestimoId})"
+        class="icon-btn icon-attach" 
+        title="Anexar comprovante"
+        onclick="anexarComprovante(${parcela.id}, ${emprestimoId})"
         >
-          Anexar comprovante
+       📎
         </button>
 
         <button 
-          class="btn-pay" 
-          onclick="pagarParcela(${parcela.id}, ${parcela.valor_parcela}, ${emprestimoId})"
-        >
-          Pagar
-        </button>
+        class="icon-btn icon-pay" 
+        title="Pagar parcela"
+        onclick="pagarParcela(${parcela.id}, ${parcela.valor_parcela}, ${emprestimoId})"
+       >
+      💰
+       </button>
 
         <button 
-        class="btn-edit"
+        class="icon-btn icon-edit"
+        title="Editar parcela"
         onclick='abrirModalEditarParcela(${JSON.stringify(parcela)}, ${JSON.stringify(emprestimo)})'
-        >
-          Editar
-        </button>
+       >
+      ✏️
+       </button>
       `
       : `
         ${
           parcela.comprovante_url
             ? `
               <button 
-                class="btn-view" 
-                onclick="abrirModalComprovante('${parcela.comprovante_url}')"
+              class="icon-btn icon-view" 
+              title="Ver comprovante"
+              onclick="abrirModalComprovante('${parcela.comprovante_url}')"
               >
-                Ver comprovante
+             👁️
               </button>
             `
             : ''
         }
 
         <button 
-          class="btn-attach" 
-          onclick="anexarComprovante(${parcela.id}, ${emprestimoId})"
+        class="icon-btn icon-attach" 
+        title="Trocar comprovante"
+        onclick="anexarComprovante(${parcela.id}, ${emprestimoId})"
         >
-          Trocar comprovante
+        🔁
         </button>
       `
   }
 
-  <button 
-  class="btn-whatsapp" 
-  onclick="cobrarWhatsApp(
-    '${parcela.cliente_nome}', 
-    '${parcela.telefone}', 
-    '${formatarMoeda(parcela.valor_parcela)}', 
-    '${formatarData(parcela.data_vencimento)}'
-  )"
->
-  Cobrar
-</button>
+        <button 
+        class="icon-btn icon-whatsapp"
+        title="Cobrar via WhatsApp"
+        onclick="cobrarWhatsApp('${parcela.cliente_nome}', '${parcela.telefone}', '${formatarMoeda(parcela.valor_parcela)}', '${formatarData(parcela.data_vencimento)}')"
+        >
+       💬
+       </button>
+       </div>
   </td>
 `;
 
@@ -299,7 +303,7 @@ async function carregarDocumentosEmprestimo(emprestimoId) {
       item.className = "documento-item";
 
       item.innerHTML = `
-        <a href="${doc.url}" target="_blank">
+        <a href="http://localhost:3000${doc.url}" target="_blank">
           📄 ${doc.nome_arquivo}
         </a>
       `;
@@ -312,21 +316,42 @@ async function carregarDocumentosEmprestimo(emprestimoId) {
 }
 
 async function adicionarDocumentoEmprestimo() {
-  const nome = prompt("Nome do documento. Ex: Contrato assinado");
-  const url = prompt("Cole o link ou caminho do documento");
+  const input = document.createElement("input");
 
-  if (!nome || !url) return;
+  input.type = "file";
+  input.accept = ".pdf,.jpg,.jpeg,.png,.doc,.docx";
 
-  try {
-    await API.emprestimos.adicionarDocumento(emprestimoAtualId, {
-      nome_arquivo: nome,
-      url: url,
-    });
+  input.onchange = async () => {
+    const arquivo = input.files[0];
 
-    alert("Documento adicionado com sucesso!");
-    carregarDocumentosEmprestimo(emprestimoAtualId);
-  } catch (err) {
-    console.error("Erro ao adicionar documento:", err);
-    alert(`Erro ao adicionar documento: ${err.message}`);
-  }
+    if (!arquivo) return;
+
+    const formData = new FormData();
+    formData.append("documento", arquivo);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/emprestimos/${emprestimoAtualId}/documentos`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authService.getToken()}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao enviar documento");
+      }
+
+      alert("Documento enviado com sucesso!");
+      carregarDocumentosEmprestimo(emprestimoAtualId);
+    } catch (err) {
+      console.error("Erro ao enviar documento:", err);
+      alert("Erro ao enviar documento");
+    }
+  };
+
+  input.click();
 }

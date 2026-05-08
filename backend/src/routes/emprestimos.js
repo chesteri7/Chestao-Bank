@@ -1,6 +1,7 @@
 const express = require('express');
-const documentosController = require('../controllers/documentosController');
 const emprestimosController = require('../controllers/emprestimosController');
+const documentosController = require('../controllers/documentosController');
+const uploadDocumento = require('../middleware/uploadDocumentos');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -13,6 +14,6 @@ router.get('/:id', emprestimosController.obterEmprestimo);
 router.put('/:id', emprestimosController.atualizarEmprestimo);
 router.delete('/:id', emprestimosController.deletarEmprestimo);
 router.get('/:id/documentos', documentosController.listarDocumentos);
-router.post('/:id/documentos', documentosController.adicionarDocumento);
+router.post('/:id/documentos', uploadDocumento.single('documento'), documentosController.adicionarDocumento);
 
 module.exports = router;

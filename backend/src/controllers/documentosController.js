@@ -16,18 +16,37 @@ async function listarDocumentos(req, res) {
 
 async function adicionarDocumento(req, res) {
   const { id } = req.params;
-  const { nome_arquivo, url } = req.body;
 
   try {
+    if (!req.file) {
+      return res.status(400).json({
+        erro: 'Nenhum arquivo enviado'
+      });
+    }
+
+    const nomeArquivo = req.file.originalname;
+
+    const url = `/uploads/documentos/${req.file.filename}`;
+
     await db.query(
-      `INSERT INTO documentos_emprestimo (emprestimo_id, nome_arquivo, url)
-       VALUES ($1, $2, $3)`,
-      [id, nome_arquivo, url]
+      `
+      INSERT INTO documentos_emprestimo
+      (emprestimo_id, nome_arquivo, url)
+      VALUES ($1, $2, $3)
+      `,
+      [id, nomeArquivo, url]
     );
 
-    res.json({ sucesso: true });
+    res.json({
+      sucesso: true
+    });
+
   } catch (err) {
-    res.status(500).json({ erro: 'Erro ao salvar documento' });
+    console.error(err);
+
+    res.status(500).json({
+      erro: 'Erro ao salvar documento'
+    });
   }
 }
 
