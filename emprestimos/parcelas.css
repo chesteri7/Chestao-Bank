@@ -417,3 +417,27 @@ tbody tr:hover {
   color: white;
 }
 
+.documento-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.btn-delete-doc {
+  background: #ef4444;
+  border: none;
+  color: white;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-delete-doc:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+

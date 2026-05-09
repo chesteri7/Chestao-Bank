@@ -303,10 +303,19 @@ async function carregarDocumentosEmprestimo(emprestimoId) {
       item.className = "documento-item";
 
       item.innerHTML = `
-        <a href="http://localhost:3000${doc.url}" target="_blank">
-          📄 ${doc.nome_arquivo}
-        </a>
-      `;
+  <div class="documento-item">
+    <a href="http://localhost:3000${doc.url}" target="_blank">
+      📄 ${doc.nome_arquivo}
+    </a>
+
+    <button 
+      class="btn-delete-doc"
+      onclick="deletarDocumento(${doc.id})"
+    >
+      🗑️
+    </button>
+  </div>
+`;
 
       container.appendChild(item);
     });
@@ -354,4 +363,36 @@ async function adicionarDocumentoEmprestimo() {
   };
 
   input.click();
+}
+
+async function deletarDocumento(documentoId) {
+
+  const confirmar = confirm(
+    "Deseja realmente excluir este documento?"
+  );
+
+  if (!confirmar) return;
+
+  try {
+
+    const response = await fetch(
+      `http://localhost:3000/api/emprestimos/documentos/${documentoId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${authService.getToken()}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Erro ao excluir documento");
+    }
+
+    carregarDocumentos();
+
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao excluir documento");
+  }
 }

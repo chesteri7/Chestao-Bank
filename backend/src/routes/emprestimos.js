@@ -15,5 +15,6 @@ router.put('/:id', emprestimosController.atualizarEmprestimo);
 router.delete('/:id', emprestimosController.deletarEmprestimo);
 router.get('/:id/documentos', documentosController.listarDocumentos);
 router.post('/:id/documentos', uploadDocumento.single('documento'), documentosController.adicionarDocumento);
+router.delete('/documentos/:documentoId',documentosController.deletarDocumento);
 
 module.exports = router;
