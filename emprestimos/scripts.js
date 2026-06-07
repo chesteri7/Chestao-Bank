@@ -68,7 +68,7 @@ if (loginForm) {
           
           // Redirecionar após 1 segundo
           setTimeout(() => {
-              window.location.href = "clientes.html";
+              window.location.href = "dashboard.html";
           }, 1000);
           
       } catch (error) {

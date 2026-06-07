@@ -96,6 +96,11 @@ async function anexarComprovante(parcelaId, emprestimoId) {
 function renderizarParcelas(parcelas, emprestimoId, emprestimo) {
   parcelasTableBody.innerHTML = "";
 
+  let resumoValorTotal = 0;
+  let resumoCustoTotal = 0;
+  let resumoLucroTotal = 0;
+  let resumoValorPago = 0;
+
   parcelas.forEach((parcela) => {
     const tr = document.createElement("tr");
 
@@ -109,22 +114,26 @@ function renderizarParcelas(parcelas, emprestimoId, emprestimo) {
 
         const custoParcela = Number(parcela.custo_parcela || emprestimo?.custo_parcela || 0);
         const lucroParcela = Number(parcela.valor_parcela || 0) - custoParcela;
+        resumoValorTotal += Number(parcela.valor_parcela || 0);
+        resumoCustoTotal += Number(custoParcela || 0);
+        resumoLucroTotal += Number(lucroParcela || 0);
+        resumoValorPago += Number(parcela.valor_pago || 0);
 
     tr.innerHTML = `
-  <td>${parcela.numero_parcela}</td>
-  <td>${formatarMoeda(parcela.valor_parcela)}</td>
-  <td>${formatarMoeda(custoParcela)}</td>
-  <td>${formatarMoeda(lucroParcela)}</td>
-  <td>${formatarData(parcela.data_vencimento)}</td>
-  <td>
+    <td>${parcela.numero_parcela}</td>
+    <td>${formatarMoeda(parcela.valor_parcela)}</td>
+    <td>${formatarMoeda(custoParcela)}</td>
+    <td>${formatarMoeda(lucroParcela)}</td>
+    <td>${formatarData(parcela.data_vencimento)}</td>
+    <td>
     <span class="status-badge ${parcela.status_exibicao || parcela.status}">
       ${parcela.status_exibicao || parcela.status}
     </span>
-  </td>
-  <td>${formatarMoeda(parcela.valor_pago)}</td>
-  <td>${formatarData(parcela.data_pagamento)}</td>
-  <td>
-   <div class="action-buttons">
+    </td>
+    <td>${formatarMoeda(parcela.valor_pago)}</td>
+    <td>${formatarData(parcela.data_pagamento)}</td>
+    <td>
+    <div class="action-buttons">
 
     ${
     parcela.status !== 'pago'
@@ -176,7 +185,7 @@ function renderizarParcelas(parcelas, emprestimoId, emprestimo) {
         🔁
         </button>
       `
-  }
+    }
 
         <button 
         class="icon-btn icon-whatsapp"
@@ -186,10 +195,18 @@ function renderizarParcelas(parcelas, emprestimoId, emprestimo) {
        💬
        </button>
        </div>
-  </td>
-`;
+    </td>
+    `;
 
     parcelasTableBody.appendChild(tr);
+    });
+
+    atualizarResumoFinanceiro({
+    valorTotal: resumoValorTotal,
+    custoTotal: resumoCustoTotal,
+    lucroTotal: resumoLucroTotal,
+    valorPago: resumoValorPago,
+    emAberto: resumoValorTotal - resumoValorPago
   });
 }
 
@@ -395,4 +412,20 @@ async function deletarDocumento(documentoId) {
     console.error(err);
     alert("Erro ao excluir documento");
   }
+}
+
+function atualizarResumoFinanceiro(resumo) {
+  const valorTotalEl = document.getElementById("resumoValorTotal");
+  const custoTotalEl = document.getElementById("resumoCustoTotal");
+  const lucroTotalEl = document.getElementById("resumoLucroTotal");
+  const valorPagoEl = document.getElementById("resumoValorPago");
+  const emAbertoEl = document.getElementById("resumoEmAberto");
+
+  if (!valorTotalEl) return;
+
+  valorTotalEl.textContent = formatarMoeda(resumo.valorTotal);
+  custoTotalEl.textContent = formatarMoeda(resumo.custoTotal);
+  lucroTotalEl.textContent = formatarMoeda(resumo.lucroTotal);
+  valorPagoEl.textContent = formatarMoeda(resumo.valorPago);
+  emAbertoEl.textContent = formatarMoeda(resumo.emAberto);
 }

@@ -441,3 +441,64 @@ tbody tr:hover {
   transform: scale(1.05);
 }
 
+.resumo-financeiro-parcelas {
+  background: #ffffff;
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+}
+
+.resumo-financeiro-parcelas h3 {
+  margin-bottom: 18px;
+  color: #0b1f3a;
+  font-size: 1.3rem;
+}
+
+.resumo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.resumo-item {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+.resumo-item span {
+  display: block;
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.resumo-item strong {
+  display: block;
+  color: #0b3b80;
+  font-size: 1.25rem;
+}
+
+.resumo-item.destaque {
+  background: #eef6ff;
+  border-color: #93c5fd;
+}
+
+.resumo-item.destaque strong {
+  color: #1d4ed8;
+}
+
+@media (max-width: 900px) {
+  .resumo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .resumo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

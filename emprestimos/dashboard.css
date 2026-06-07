@@ -290,3 +290,52 @@ tbody tr:hover {
   text-decoration: underline;
 }
 
+.lucro-realizacao-card {
+  border-left: 6px solid #2563eb;
+  background: linear-gradient(135deg, #ffffff, #eef6ff);
+}
+
+.lucro-realizacao-card span {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.lucro-realizacao-card h2 {
+  margin: 10px 0 6px;
+  color: #0b3b80;
+  font-size: 1.8rem;
+}
+
+.lucro-realizacao-card p {
+  margin: 0 0 8px;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.lucro-realizacao-card small {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.receita-30-card {
+  border-left: 6px solid #16a34a;
+  background: linear-gradient(135deg, #ffffff, #f0fdf4);
+}
+
+.receita-30-card span {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.receita-30-card h2 {
+  margin: 10px 0 6px;
+  color: #166534;
+  font-size: 1.8rem;
+}
+
+.receita-30-card p {
+  margin: 0;
+  color: #15803d;
+  font-weight: 700;
+}
+

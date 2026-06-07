@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   carregarDashboard();
   carregarProximosVencimentos();
+  calcularPrevisaoLucro();
+  calcularReceita30Dias();
   configurarLogout();
 });
 
@@ -188,4 +190,150 @@ function configurarLogout() {
     authService.removeToken();
     window.location.href = "index.html";
   });
+}
+
+async function calcularPrevisaoLucro() {
+  try {
+    const resposta = await API.emprestimos.listar(1, 999);
+    const emprestimos = resposta.emprestimos || [];
+
+    let lucroRestante = 0;
+    let ultimaDataLucro = null;
+
+    for (const emprestimo of emprestimos) {
+      try {
+        const respostaParcelas = await API.parcelas.obterStatus(emprestimo.id);
+        const parcelas = respostaParcelas.parcelas || [];
+
+        parcelas.forEach((parcela) => {
+          if (parcela.status === "pago") return;
+
+          const valorParcela = Number(parcela.valor_parcela || 0);
+          const custoParcela = Number(emprestimo.custo_parcela || 0);
+          const lucroParcela = valorParcela - custoParcela;
+
+          if (lucroParcela > 0) {
+            lucroRestante += lucroParcela;
+
+            const dataVencimento = new Date(parcela.data_vencimento);
+
+            if (!ultimaDataLucro || dataVencimento > ultimaDataLucro) {
+              ultimaDataLucro = dataVencimento;
+            }
+          }
+        });
+      } catch (error) {
+        console.error(`Erro ao buscar parcelas do empréstimo ${emprestimo.id}:`, error);
+      }
+    }
+
+    atualizarCardPrevisaoLucro(lucroRestante, ultimaDataLucro);
+  } catch (err) {
+    console.error("Erro ao calcular previsão de lucro:", err);
+  }
+}
+
+function atualizarCardPrevisaoLucro(lucroRestante, ultimaDataLucro) {
+  const dataFinalEl = document.getElementById("lucroDataFinal");
+  const tempoRestanteEl = document.getElementById("lucroTempoRestante");
+  const resumoEl = document.getElementById("lucroResumo");
+
+  if (!dataFinalEl || !tempoRestanteEl || !resumoEl) return;
+
+  if (!ultimaDataLucro) {
+    dataFinalEl.textContent = "Sem lucro pendente";
+    tempoRestanteEl.textContent = "Nenhuma parcela pendente com lucro.";
+    resumoEl.textContent = "Lucro restante: R$ 0,00";
+    return;
+  }
+
+  const hoje = new Date();
+  hoje.setHours(0, 0, 0, 0);
+
+  ultimaDataLucro.setHours(0, 0, 0, 0);
+
+  const diffMs = ultimaDataLucro - hoje;
+  const diasRestantes = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  const meses = Math.floor(diasRestantes / 30);
+  const dias = diasRestantes % 30;
+
+  let textoTempo = "";
+
+  if (diasRestantes < 0) {
+    textoTempo = "Prazo já vencido.";
+  } else if (meses > 0) {
+    textoTempo = `${meses} mês(es) e ${dias} dia(s) restantes`;
+  } else {
+    textoTempo = `${diasRestantes} dia(s) restantes`;
+  }
+
+  dataFinalEl.textContent = formatarData(ultimaDataLucro);
+  tempoRestanteEl.textContent = textoTempo;
+  resumoEl.textContent = `Lucro restante: ${formatarMoeda(lucroRestante)}`;
+}
+
+async function calcularReceita30Dias() {
+  try {
+    const resposta = await API.emprestimos.listar(1, 999);
+    const emprestimos = resposta.emprestimos || [];
+
+    let receitaPrevista = 0;
+    let totalParcelas = 0;
+
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    const limite = new Date(hoje);
+    limite.setDate(limite.getDate() + 30);
+
+    for (const emprestimo of emprestimos) {
+      try {
+        const respostaParcelas = await API.parcelas.obterStatus(emprestimo.id);
+        const parcelas = respostaParcelas.parcelas || [];
+
+        parcelas.forEach((parcela) => {
+          const dataVencimento = new Date(parcela.data_vencimento);
+          dataVencimento.setHours(0, 0, 0, 0);
+
+          const status = parcela.status_exibicao || parcela.status;
+
+          const dentroDos30Dias =
+            dataVencimento >= hoje && dataVencimento <= limite;
+
+          const pendente = status !== "pago";
+
+          if (dentroDos30Dias && pendente) {
+            receitaPrevista += Number(parcela.valor_parcela || 0);
+            totalParcelas += 1;
+          }
+        });
+      } catch (error) {
+        console.error(
+          `Erro ao buscar parcelas do empréstimo ${emprestimo.id}:`,
+          error
+        );
+      }
+    }
+
+    atualizarCardReceita30Dias(receitaPrevista, totalParcelas);
+  } catch (err) {
+    console.error("Erro ao calcular receita dos próximos 30 dias:", err);
+  }
+}
+
+function atualizarCardReceita30Dias(valor, quantidadeParcelas) {
+  const receitaEl = document.getElementById("receita30Dias");
+  const resumoEl = document.getElementById("receita30Resumo");
+
+  if (!receitaEl || !resumoEl) return;
+
+  receitaEl.textContent = formatarMoeda(valor);
+
+  if (quantidadeParcelas === 0) {
+    resumoEl.textContent = "Nenhuma parcela pendente nos próximos 30 dias.";
+    return;
+  }
+
+  resumoEl.textContent = `${quantidadeParcelas} parcela(s) prevista(s) para entrar.`;
 }
